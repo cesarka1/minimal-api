@@ -56,6 +56,14 @@ app.MapGet("/veiculos", ([FromQuery] int? pagina, IVeiculosServico veiculosServi
     var veiculo = veiculosServico.Todos(pagina);
     return Results.Ok(veiculo);
 }).WithTags("Veiculos");
+app.MapGet("/veiculos/{id}", ([FromRoute] int id, IVeiculosServico veiculosServico) =>
+{
+    var veiculo = veiculosServico.BuscaPorId(id);
+    if(veiculo == null)
+        return Results.NotFound();
+        else
+    return Results.Ok(veiculo);
+}).WithTags("Veiculos");
 
 #endregion
 #region App
